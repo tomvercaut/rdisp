@@ -8,7 +8,15 @@ edition = "2018"
 
 [dependencies]
 console = "0.11.3"
+string-error = "0.1.0"
+
+[dependencies.serde]
+version = "1.0.110"
+features = ["derive"]
+
+[dependencies.serde_json]
+version = "1.0.53"
 
 [dependencies.async-std]
-version = "1.6.0-beta.1"
+version = "1.5.0"
 features = ["attributes"]

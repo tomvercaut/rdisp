@@ -1,88 +1,93 @@
 // use async_std::prelude::*;
 use console::Term;
 use std::io::Write;
+use std::path::Path;
+use serde::{Serialize, Deserialize};
+use std::error::Error;
+use string_error;
 
 async fn read_ans(term: &mut console::Term, msg: &str) -> std::io::Result<String> {
     term.write(format!("{}: ", msg).as_bytes())?;
     term.read_line()
 }
 
-fn menu_banner(term: &Term) {
-    term.write_line(
+fn menu_banner(term: &Term) -> std::io::Result<()> {
+    if let Err(e) = term.write_line(
         "                                                                                     ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                dddddddd                                             ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                d::::::d  iiii                                       ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                d::::::d i::::i                                      ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                d::::::d  iiii                                       ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                d:::::d                                              ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "rrrr   rrrrrrrrr       ddddddddd:::::d iiiiiii     ssssssssss   ppppp   ppppppppp    ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "::::rrr:::::::::r    dd::::::::::::::d i:::::i   ss::::::::::s  p::::ppp:::::::::p   ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         ":::::::::::::::::r  d::::::::::::::::d  i::::i ss:::::::::::::s p:::::::::::::::::p  ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "r::::::rrrrr::::::rd:::::::ddddd:::::d  i::::i s::::::ssss:::::spp::::::ppppp::::::p ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         " r:::::r     r:::::rd::::::d    d:::::d  i::::i  s:::::s  ssssss  p:::::p     p:::::p",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         " r:::::r     rrrrrrrd:::::d     d:::::d  i::::i    s::::::s       p:::::p     p:::::p",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         " r:::::r            d:::::d     d:::::d  i::::i       s::::::s    p:::::p     p:::::p",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         " r:::::r            d:::::d     d:::::d  i::::i ssssss   s:::::s  p:::::p    p::::::p",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         " r:::::r            d::::::ddddd::::::ddi::::::is:::::ssss::::::s p:::::ppppp:::::::p",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         " r:::::r             d:::::::::::::::::di::::::is::::::::::::::s  p::::::::::::::::p ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         " r:::::r              d:::::::::ddd::::di::::::i s:::::::::::ss   p::::::::::::::pp  ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         " rrrrrrr               ddddddddd   dddddiiiiiiii  sssssssssss     p::::::pppppppp    ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                                                  p:::::p            ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                                                  p:::::p            ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                                                 p:::::::p           ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                                                 p:::::::p           ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                                                 p:::::::p           ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                                                 ppppppppp           ",
-    );
-    term.write_line(
+    ) { return Err(e); }
+    if let Err(e) = term.write_line(
         "                                                                                     ",
-    );
+    ) { return Err(e); }
+    Ok(())
 }
 
 async fn menu_vnc_displays() -> std::io::Result<()> {
@@ -104,10 +109,7 @@ async fn menu_main() -> std::io::Result<()> {
     let mut redisplay = true;
     let ident = "  ";
     while redisplay {
-        // term.write_line("/----------\\")?;
-        // term.write_line("|  rdisp   |")?;
-        // term.write_line("\\----------/")?;
-        menu_banner(&term);
+        if let Err(e) = menu_banner(&term) { return Err(e); }
         term.write_line("")?;
         term.write_line(format!("{}1. VNC displays:", ident).as_str())?;
         term.write_line(format!("{}2. Configuration", ident).as_str())?;
@@ -133,4 +135,41 @@ async fn main() {
     if let Err(e) = rv {
         eprintln!("Error: {}", e);
     }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub(crate) struct Configuration {
+    pub(crate) version: String,
+    pub(crate) vnc_profiles: Vec<VNCProfile>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub(crate) struct VncCommand {
+    pub(crate) cmd: String,
+    pub(crate) args: Vec<String>
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub(crate) struct VNCProfile {
+    pub(crate) version: String,
+    pub(crate) server: String,
+    pub(crate) display: String,
+}
+
+async fn read_configuration(path: &Path) -> Result<Configuration, Box<Error>> {
+    let res_buf = std::fs::read(path);
+    if let Err(e) = res_buf {
+        return Err(string_error::into_err(e.to_string()));
+    }
+    let buf = res_buf.unwrap();
+    let res_sbuf = String::from_utf8(buf);
+    if let Err(e) = res_sbuf {
+        return Err(Box::new(e));
+    }
+    let sbuf = res_sbuf.unwrap();
+    let res_json : Result<Configuration, serde_json::Error> = serde_json::from_str(&sbuf);
+    if let Err(e) = res_json {
+        return Err(Box::new(e));
+    }
+    return Ok(res_json.unwrap());
 }
